@@ -14,6 +14,7 @@ router.post("/signup", async (req, res) => {
       message: "User already registered",
       data: {},
     });
+    return;
   }
 
   const newUser = new Users({
@@ -24,7 +25,7 @@ router.post("/signup", async (req, res) => {
   });
   await newUser.save();
 
-  return res.json({
+  res.json({
     success: true,
     message: "User registered successfully",
     data: newUser,
@@ -35,23 +36,24 @@ router.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username && !password) {
-    return res.json({
+    res.json({
       success: false,
       message: "Please provide username and password!",
       body: {},
     });
+    return;
   }
 
   const user = await Users.findOne({ username, password });
 
   if (user?.username) {
-    return res.json({
+    res.json({
       success: true,
       message: "Login successfully",
       body: user,
     });
   } else {
-    return res.json({
+    res.json({
       success: false,
       message: "User not found!",
       body: {},
