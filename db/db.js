@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 module.exports.dbConnection = () => {
-  mongoose.connect(
-    "mongodb+srv://twitter-server:twitter-server@twitter-server.65zrx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-    }
-  );
+  mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
+    useNewUrlParser: true,
+  });
 
   const db = mongoose.connection;
 

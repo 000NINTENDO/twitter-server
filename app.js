@@ -3,6 +3,7 @@ const express = require("express");
 const { dbConnection } = require("./db/db");
 const authRoutes = require("./routes/auth/signup");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", authRoutes);
 
-app.listen(5000, () => {
-  console.info(`Server is listening on port 5000...`);
+const port = process.env.PORT ?? 5000;
+app.listen(port, () => {
+  console.info(`Server is listening on port ${port}...`);
 });
